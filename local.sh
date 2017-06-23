@@ -2,9 +2,7 @@
 
 set -e
 
-rm -f ./creds.yml
-
-bosh create-env concourse.yml \
+gobosh create-env concourse.yml \
   --state ./state.json \
   -o ./virtualbox/cpi.yml \
   -o ./virtualbox/outbound-network.yml \
@@ -13,4 +11,6 @@ bosh create-env concourse.yml \
   -v internal_gw=192.168.50.1 \
   -v internal_cidr=192.168.50.1/24 \
   -v network_name=vboxnet0 \
-  -v outbound_network_name=NatNetwork
+  -v outbound_network_name=NatNetwork \
+  -v tag=$( hostname ) \
+  "$@"
